@@ -1,0 +1,659 @@
+GremlinNob:
+  name: Gremlin Nob
+  danger_level: High
+  threat_type: Punish Skill
+  key_mechanics: 'Enrage: Gains +2 (A18+: +3) Strength permanently whenever player
+    plays a SKILL card. Turn 1 buffs Enrage; Turn 2/3 deals 14-18 damage with Vulnerable;
+    Turn 4 hits for 24+ damage.'
+  tactics: DO NOT play non-lethal Skill cards (including Defend/Flex)! Pure all-out
+    physical attack burst. Race and kill within 3 turns before its scaling wipes you
+    out.
+  priority: 1
+Lagavulin:
+  name: Lagavulin
+  danger_level: High
+  threat_type: Setup & Debuff
+  key_mechanics: Starts in deep sleep with 8 Block for 3 turns. Wakes immediately
+    upon taking damage. Upon waking, attacks for 18-20 damage, then siphons soul (-1
+    Str, -1 Dex every 3 turns).
+  tactics: Do not wake it early with chip damage! Use the sleep turns freely to play
+    Powers (Inflame, Metallicize) and setup buffs. When ready, unleash a huge burst
+    to break shield and HP.
+  priority: 1
+Sentry:
+  name: Sentries (Tri-Sentry)
+  danger_level: Medium
+  threat_type: Hand Clutter
+  key_mechanics: '3 Sentries with 38-42 HP each. Outer sentries alternate between
+    9-10 damage attacks and shuffling 2 (A18+: 3) Dazed cards into draw pile.'
+  tactics: Focus down either the left or right Sentry immediately within Turn 1-2!
+    Breaking one sentry breaks their synchronized attack/daze rotation and prevents
+    deck choking.
+  priority: 1
+SlimeBoss:
+  name: Slime Boss
+  danger_level: Extreme
+  threat_type: Split Threshold & Slam
+  key_mechanics: Splits into two medium slimes (Acid & Spike) upon reaching <= 50%
+    HP. If not split by Turn 3, prepares and unleashes a massive 35-38 damage Slam.
+  tactics: HP control is everything! Stop attacking just above 50% HP, then unleash
+    a massive single-turn burst (Bash + Heavy Blade / Carnage) to drop it as low as
+    possible before splitting. This leaves the spawned slimes with very low starting
+    HP.
+  priority: 1
+TheGuardian:
+  name: The Guardian
+  danger_level: Extreme
+  threat_type: Form Shift & Thorns
+  key_mechanics: 'Offensive Mode: Attacks heavily (Whirlwind 5x4). Shifts to Defensive
+    Mode upon taking 30 (A19+: 40) damage. Defensive Mode: gains +20 Block and 3-4
+    Sharp Hide (thorns damage per attack card played).'
+  tactics: Burst hard in Offensive Mode to trigger its defensive shift before it executes
+    Whirlwind. In Defensive Mode, STOP playing multi-hit low damage attacks to avoid
+    thorns; spend energy blocking.
+  priority: 1
+Hexaghost:
+  name: Hexaghost
+  danger_level: Extreme
+  threat_type: Multi-hit & Burns
+  key_mechanics: Turn 2 hits 6 times for (Player Current HP / 12) + 1 damage per hit.
+    Rapidly clutters draw pile with Burns (taking 2-4 damage per turn).
+  tactics: 'Entering combat with lower HP actually reduces its Turn 2 multi-hit opening!
+    Pure DPS race: apply Vulnerable and burst down before Burns overwhelm your draw
+    pile.'
+  priority: 1
+Cultist:
+  name: Cultist
+  danger_level: Medium
+  threat_type: DPS Check
+  key_mechanics: 'Turn 1 casts Ritual (+3, A17+: +4 Strength every turn). Damage scales
+    exponentially: 6 -> 9 -> 12 -> 15+.'
+  tactics: Must be killed FIRST! High priority clock. Extremely lethal if left alive
+    past Turn 4.
+  priority: 1
+JawWorm:
+  name: Jaw Worm
+  danger_level: Low
+  threat_type: Buff & Block
+  key_mechanics: Alternates between Bellow (+3/4 Str, +6 Block) and Chomp (11-14 dmg).
+    Scales if fight drags on.
+  tactics: Attack hard on its Bellow buff turn; calculate and prioritize full block
+    on its Chomp attack turn.
+  priority: 2
+Louse:
+  name: Louse (Red / Green)
+  danger_level: Low
+  threat_type: Curl Up
+  key_mechanics: Curl Up triggers AFTER taking non-lethal attack damage. If incoming
+    attack damage >= current HP (e.g. 1 HP), Louse DIES INSTANTLY and Curl Up never
+    triggers!
+  tactics: If Louse HP is low enough to be killed by an attack (e.g. 1 HP), attack
+    directly for the instant lethal! If high HP, pop Curl Up with a weak attack before
+    heavy hits.
+  priority: 3
+FungiBeast:
+  name: Fungi Beast
+  danger_level: Medium
+  threat_type: Spore Cloud & Scaling
+  key_mechanics: Gains +3 Strength with Grow. On death, releases Spore Cloud applying
+    2 Vulnerable to player. Has 2-hit bite attack (6x2 -> 9x2).
+  tactics: Burst down quickly before its Strength scales. Be prepared to defend against
+    Vulnerable after it dies.
+  priority: 2
+AcidSlime:
+  name: Acid Slime (L / M / S)
+  danger_level: Medium
+  threat_type: Split & Weak
+  key_mechanics: Large slime splits at <= 50% HP. Attacks apply Weak (-25% damage)
+    and shuffle Slimed into discard pile.
+  tactics: Burst down past 50% to minimize child slime HP. Avoid letting Weak ruin
+    lethal damage turns.
+  priority: 2
+SpikeSlime:
+  name: Spike Slime (L / M / S)
+  danger_level: Medium
+  threat_type: Split & Frail
+  key_mechanics: Large slime splits at <= 50% HP. Attacks apply Frail (-25% block
+    gained) and shuffle Slimed.
+  tactics: Same split control as Acid Slime. Note that Frail makes blocking very inefficient;
+    favor offense.
+  priority: 2
+GremlinFat:
+  name: Fat Gremlin
+  danger_level: High
+  threat_type: Weak Debuff
+  key_mechanics: Hits for 4-5 damage and applies Weak EVERY single turn. Stacks Weak
+    continuously.
+  tactics: Top priority target among gremlin packs! Eliminate immediately to preserve
+    your damage output.
+  priority: 1
+GremlinWarrior:
+  name: Mad Gremlin
+  danger_level: High
+  threat_type: Enrage on Hit
+  key_mechanics: 'Gains +1 (A17+: +2) Strength every time it takes damage from an
+    attack.'
+  tactics: Do not hit with weak chip attacks or multi-hits! Kill in one big single
+    attack (e.g. Bash/Carnage).
+  priority: 1
+GremlinWizard:
+  name: Gremlin Wizard
+  danger_level: High
+  threat_type: Ultimate Blast
+  key_mechanics: Spends Turns 1-2 charging Ultimate Blast; Turn 3 unleashes 25-30
+    massive damage.
+  tactics: Kill before Turn 3! You have 2 free turns to eliminate it while it charges.
+  priority: 1
+GremlinThief:
+  name: Sneaky Gremlin
+  danger_level: Low
+  threat_type: Physical Damage
+  key_mechanics: Simple physical attack (9-10 damage). Fragile HP.
+  tactics: Eliminate after Fat Gremlin and Mad Gremlin.
+  priority: 3
+GremlinTsundere:
+  name: Shield Gremlin
+  danger_level: Low
+  threat_type: Block Buffer
+  key_mechanics: Casts Protect (+7-10 Block) on its allies every turn.
+  tactics: Either burst down the main attacker through shields, or snipe this buffer
+    if you have spare energy.
+  priority: 3
+Looter:
+  name: Looter / Mugger
+  danger_level: Medium
+  threat_type: Gold Steal & Escape
+  key_mechanics: Steals 15-20 gold per attack on Turns 1-2; casts Smoke Bomb (+6 Block)
+    on Turn 3 and flees on Turn 4.
+  tactics: Burst down before Turn 4 to reclaim stolen gold.
+  priority: 2
+  aliases:
+  - Looter
+  - Thieves
+BookOfStabbing:
+  name: Book of Stabbing
+  danger_level: High
+  threat_type: Rapid Multi-hits
+  key_mechanics: 'Increases attack hits by +1 each cycle: 6x2 -> 6x3 -> 6x4 -> 6x5+.
+    Unchecked scaling.'
+  tactics: Extreme DPS race! Apply Weak immediately (mitigates huge damage on multi-hits).
+    Burst down before hit count exceeds 4.
+  priority: 1
+SlaverRed:
+  name: Red Slaver
+  danger_level: Extreme
+  threat_type: Entangle
+  key_mechanics: Casts Entangle on Turn 1-2 (player CANNOT play Attack cards for 1
+    turn!). Also hits for 13-14 with Vulnerable.
+  tactics: TOP PRIORITY in Slaver fights! Must kill immediately to avoid Entangle
+    locking your turn.
+  priority: 1
+SlaverBlue:
+  name: Blue Slaver
+  danger_level: High
+  threat_type: Weak & Hit
+  key_mechanics: Attacks for 12-13 and applies Weak. Consistently chips HP.
+  tactics: Kill second after Red Slaver.
+  priority: 2
+SlaverBoss:
+  name: Taskmaster
+  danger_level: High
+  threat_type: Strength Scaling & Wounds
+  key_mechanics: Gains +1 Strength and attacks for 7x3, shuffling Wounds into draw
+    pile.
+  tactics: Kill red/blue slavers first to stop debuffs, then burn down Taskmaster
+    before Strength stacks.
+  priority: 2
+GremlinLeader:
+  name: Gremlin Leader
+  danger_level: High
+  threat_type: Summoner & Buff
+  key_mechanics: 'If minions are dead: summons 2 gremlins. If minions are alive: buffs
+    them (+3-5 Str) or hits for 6x3.'
+  tactics: Always keep minions dead! As long as you kill the minions, the Leader is
+    forced to spend turns re-summoning rather than attacking.
+  priority: 1
+BronzeAutomaton:
+  name: Bronze Automaton
+  danger_level: Extreme
+  threat_type: Hyper Beam & Minions
+  key_mechanics: Turn 2 summons 2 Bronze Orbs (which steal cards from your draw/discard
+    pile). Turn 4-5 casts Boost (+3 Str, +9 Block). Turn 6 unleashes HYPER BEAM (45-52
+    massive damage) followed by stun.
+  tactics: Kill orbs to reclaim stolen cards. Save maximum defense/intangible/potions
+    for Hyper Beam turn, or burst it down before Turn 6.
+  priority: 1
+TheCollector:
+  name: The Collector
+  danger_level: Extreme
+  threat_type: Summoner & Mega Debuff
+  key_mechanics: Turn 1 summons 2 Torch Heads (attacks for 7). Casts 'You Are Mine'
+    applying 3 Vulnerable, 3 Weak, 3 Frail! Buffs +3-5 Strength to all.
+  tactics: Clear Torch Heads with AoE (Cleave, Immolate). Prepare strong block for
+    the turns following Mega Debuff.
+  priority: 1
+Champ:
+  name: The Champ
+  danger_level: Extreme
+  threat_type: Execute Threshold
+  key_mechanics: 'At <= 50% HP: cleanses all debuffs, gains +5 Strength, and enters
+    Phase 2. Next turn hits with EXECUTE (10x2 / 16x2 massive lethal).'
+  tactics: DO NOT trigger 50% HP casually! Stall in Phase 1 to set up Powers and buffs,
+    get it close to 50%, then unleash a massive burst turn to skip as much of Phase
+    2 as possible.
+  priority: 1
+Byrd:
+  name: Byrd
+  danger_level: Medium
+  threat_type: Flight Multi-hit
+  key_mechanics: 'Flight: takes 50% reduced damage. Takes 3 (A17+: 4) attack hits
+    to knock down, causing it to fall and take double damage. Hits for 1x5 or 1x6.'
+  tactics: Multi-hit attacks (Twin Strike, Sword Boomerang, Whirlwind) instantly ground
+    Byrds. Ground them first!
+  priority: 1
+Chosen:
+  name: Chosen
+  danger_level: High
+  threat_type: Hex (Anti-Skill)
+  key_mechanics: 'Casts Hex: every time player plays a non-Attack card, shuffles a
+    Dazed into draw pile. Attacks for 18-21 with Vulnerable.'
+  tactics: Play essential Powers immediately on Turn 1 before Hex. Once Hexed, minimize
+    non-attack cards to avoid choking your draw pile.
+  priority: 1
+SphericGuardian:
+  name: Spheric Guardian
+  danger_level: Medium
+  threat_type: Starting Block & Frail
+  key_mechanics: Starts with 40 Block and Barricade. Attacks for 10x2 with Frail.
+  tactics: Use heavy attacks to crack the 40 block shell. Frail makes defense difficult;
+    burst it down.
+  priority: 2
+Snecko:
+  name: Snecko
+  danger_level: High
+  threat_type: Confused
+  key_mechanics: Applies Confused (all drawn cards have randomized energy cost 0-3).
+    Hits for 15-18 with Vulnerable/Weak.
+  tactics: Card draw cards become exceptionally powerful under Confused. High cost
+    cards become cheaper on average. Prioritize high-impact cards.
+  priority: 1
+Centurion:
+  name: Centurion & Mystic
+  danger_level: Medium
+  threat_type: Tank & Healer
+  key_mechanics: Centurion attacks and shields; Mystic (Healer) heals 16-20 HP and
+    buffs +2-4 Strength to both.
+  tactics: Kill the Mystic (Healer) FIRST! If you hit Centurion, Mystic will just
+    heal him back.
+  priority: 1
+  aliases:
+  - Centurion
+  - Centurion & Mystic
+SnakePlant:
+  name: Snake Plant
+  danger_level: High
+  threat_type: Malleable & Multi-hit
+  key_mechanics: 'Malleable: gains +2 Block each time it takes attack damage. Attacks
+    for 7x3 / 8x3 and applies Frail and Weak.'
+  tactics: Avoid low-damage multi-attacks (each hit gives it +2 block). Use single
+    massive hits (Bludgeon, Carnage, Bash).
+  priority: 1
+ShelledParasite:
+  name: Shelled Parasite (Avocado)
+  danger_level: Medium
+  threat_type: Plated Armor
+  key_mechanics: 14 Plated Armor. Hits for 10x2 and applies Frail.
+  tactics: Attack every turn to strip Plated Armor. Save block against its double
+    hit.
+  priority: 2
+  aliases:
+  - Shelled Parasite
+  - ShelledParasite
+  - Avocado
+BanditLeader:
+  name: Bandits (Romeo, Bear, Pointy)
+  danger_level: High
+  threat_type: Dexterity Steal
+  key_mechanics: Bear steals 4 Dexterity permanently on Turn 2! Romeo attacks with
+    Agility; Pointy chips damage.
+  tactics: KILL BEAR IMMEDIATELY on Turn 1! Losing 4 Dexterity cripples your defense
+    for the rest of combat.
+  priority: 1
+  aliases:
+  - Romeo
+  - BanditLeader
+  - Bandits
+GiantHead:
+  name: Giant Head
+  danger_level: High
+  threat_type: Countdown & Scaling
+  key_mechanics: 'Slow: takes +10% extra damage per card played this turn. Counts
+    down from 5 turns. On Turn 6+ says ''It Is Time'' and deals 30 -> 35 -> 40 ->
+    45 damage every turn.'
+  tactics: Play many cards per turn to ramp up the Slow vulnerability multiplier.
+    Burst hard before Turn 5!
+  priority: 1
+Nemesis:
+  name: Nemesis
+  danger_level: High
+  threat_type: Intangible Cycle
+  key_mechanics: Alternates Intangible every other turn (takes only 1 damage per hit!).
+    Scythe attack deals 45 damage; also adds 3-5 Burns to draw pile.
+  tactics: NEVER dump big attacks on its Intangible turns (only 1 damage dealt). Spend
+    intangible turns setting up buffs and blocking. Unleash all damage on tangible
+    turns!
+  priority: 1
+Reptomancer:
+  name: Reptomancer
+  danger_level: Extreme
+  threat_type: Explosive Daggers
+  key_mechanics: Summons Daggers. Daggers attack for 9 on Turn 1, then SUICIDE EXPLODE
+    for 25-30 damage on Turn 2! Reptomancer attacks for 13x2 or 30+.
+  tactics: 'TOP PRIORITY: Kill every Dagger immediately upon spawn! Dagger explosions
+    will kill you faster than the boss.'
+  priority: 1
+TimeEater:
+  name: Time Eater
+  danger_level: Extreme
+  threat_type: 12-Card Clock & Cleanse
+  key_mechanics: 'Time Warp: Every 12 cards played immediately ENDS player turn and
+    gives Time Eater +2 Strength. At <= 50% HP, cleanses all debuffs and heals back
+    to 50% HP.'
+  tactics: Card efficiency over card spam! Avoid playing low-impact cards. Always
+    control the counter so it ends your turn intentionally on card 12, not card 3.
+    Burst hard right before 50%.
+  priority: 1
+AwakenedOne:
+  name: Awakened One
+  danger_level: Extreme
+  threat_type: Curiosity (Anti-Power) & Rebirth
+  key_mechanics: 'Phase 1: Curiosity gives it +1 (A19+: +2) Strength per POWER card
+    played. Accompanied by 2 Cultists. On defeat, REVIVES to full HP in Phase 2 with
+    empowered attacks.'
+  tactics: Kill the 2 Cultists first! In Phase 1, play ONLY scaling win-condition
+    powers (e.g. Demon Form/Feel No Pain); avoid minor powers. Unleash full force
+    in Phase 2.
+  priority: 1
+DonuAndDeca:
+  name: Donu & Deca
+  danger_level: Extreme
+  threat_type: Dual Scaling
+  key_mechanics: Donu casts Circle of Power (+3 Strength to BOTH every 2 turns); Deca
+    provides 16 Block and shuffles Dazed. Alternates attacking for 10x2.
+  tactics: FOCUS DOWN DONU FIRST! Donu is the engine that scales their damage to lethal
+    levels. Once Donu is dead, Deca alone cannot scale and is easy to defeat.
+  priority: 1
+  aliases:
+  - Donu & Deca
+  - DonuAndDeca
+  - Donu
+  - Deca
+Darkling:
+  name: Darklings (Trio)
+  danger_level: Medium
+  threat_type: Revive Mechanic
+  key_mechanics: When killed, enters half-dead state and REVIVES with 50% HP in 2
+    turns unless ALL 3 Darklings are dead simultaneously.
+  tactics: Balance damage across all 3! Bring them all to low HP, then finish them
+    off in the same turn or consecutive turns to prevent infinite revives.
+  priority: 1
+OrbWalker:
+  name: Orb Walker
+  danger_level: Medium
+  threat_type: Burn & Strength
+  key_mechanics: Gains +3-5 Strength per turn, attacks for 15-20 and adds Burns.
+  tactics: Standard DPS race. Kill quickly before Strength stacks.
+  priority: 1
+  aliases:
+  - Orb Walker
+  - OrbWalker
+Exploder:
+  name: Exploder
+  danger_level: High
+  threat_type: Countdown Bomb
+  key_mechanics: Spends 2 turns prepping; on Turn 3 EXPLODES for 30 damage.
+  tactics: Kill within 2 turns! If unable to kill, prepare 30 block on Turn 3.
+  priority: 1
+Repulsor:
+  name: Repulsor
+  danger_level: Low
+  threat_type: Dazed Clutter
+  key_mechanics: Shuffles 2 Dazed cards into draw pile every turn. 11-13 damage.
+  tactics: Kill after Exploder.
+  priority: 2
+Spiker:
+  name: Spiker
+  danger_level: Medium
+  threat_type: Thorns Growth
+  key_mechanics: Starts with 4 Thorns; gains +1-2 Thorns each buff turn.
+  tactics: Do not hit with multi-hit attacks! Use single heavy hits or indirect damage.
+  priority: 3
+Maw:
+  name: The Maw
+  danger_level: Medium
+  threat_type: Roar Debuff
+  key_mechanics: Turn 1 casts Roar (-3 Str, -3 Dex). Alternates between Drool (+3
+    Str) and multi-hit Nom (5x2 -> 5x3).
+  tactics: Debuff hurts early; spend turns buffing or scaling block to withstand multi-hit.
+  priority: 2
+Transient:
+  name: Transient
+  danger_level: Medium
+  threat_type: Fade Countdown
+  key_mechanics: Has 999 HP. Automatically dies after 5 turns. Deals 30 -> 40 -> 50
+    massive damage, BUT every point of unblocked damage dealt to it reduces its attack
+    damage this turn by that amount!
+  tactics: Attack it aggressively every turn to reduce its incoming attack damage
+    to 0! You do not need to deplete 999 HP, just survive 5 turns.
+  priority: 1
+WrithingMass:
+  name: Writhing Mass
+  danger_level: High
+  threat_type: Reactive Intent & Parasite
+  key_mechanics: 'Malleable (+3 Block per hit). Reactive: EVERY TIME it is hit by
+    an attack, its INTENT CHANGES! Can intend to attack for 32, shield, or curse player
+    with permanent Parasite.'
+  tactics: Check its intent after EVERY card! If it rolls into a bad intent (like
+    Strong Attack or Curse), hit it again with an attack to re-roll its intent into
+    a harmless block/buff.
+  priority: 1
+Serpent:
+  name: Spire Growth
+  danger_level: High
+  threat_type: Constrict
+  key_mechanics: Applies Constricted (player takes 10-12 damage at the end of EVERY
+    turn). Heavy 18-22 smash attacks.
+  tactics: Urgent DPS race! Constrict damage bypasses end-of-turn block, so you must
+    kill it rapidly.
+  priority: 1
+  aliases:
+  - Spire Growth
+  - Serpent
+  - SpireGrowth
+SpireShield:
+  name: Spire Shield
+  danger_level: Extreme
+  threat_type: Surround & Debuff
+  key_mechanics: 'Fights alongside Spire Spear. Surround: player takes 50% extra damage
+    from behind. Debuffs player with -1 Str, -1 Dex. Gains massive 30-99 Block.'
+  tactics: Turn towards the enemy that is about to attack to avoid the 50% back-attack
+    damage multiplier! Apply Disarm to Spire Spear and manage Shield debuffs.
+  priority: 1
+SpireSpear:
+  name: Spire Spear
+  danger_level: Extreme
+  threat_type: Surround & Multi-hit
+  key_mechanics: Attacks for 10x4 multi-hit with burns on Turn 2. Scales Strength
+    rapidly.
+  tactics: Usually killed first due to lower HP and massive multi-hit threat on Turn
+    2.
+  priority: 1
+CorruptHeart:
+  name: The Corrupt Heart
+  danger_level: God Tier
+  threat_type: Beat of Death & Invincible
+  key_mechanics: 'Invincible: can take at most 300 (A19+: 200) damage per turn. Beat
+    of Death: player takes 1 (A19+: 2) direct damage EVERY TIME a card is played.
+    Alternates between Blood Shots (2x12 / 2x15) and Echo Attack (40-45). Cleanses
+    on Turn 4 and scales exponentially.'
+  tactics: '1. Feel No Pain / Rupture / Flame Barrier are god-tier counters to Beat
+    of Death. 2. Must have Disarm / Strength down or huge block for Blood Shots. 3.
+    Respect the damage cap: once 200/300 damage is dealt this turn, stop playing attacks
+    and focus purely on defense!'
+  priority: 1
+FuzzyLouseNormal:
+  name: Red Louse (Fuzzy Louse)
+  aliases:
+  - Red Louse
+  - FuzzyLouseNormal
+  - LouseNormal
+  threat_type: Strength Scaler & Curl Up
+  danger_level: Low
+  priority: 2
+  key_mechanics: 'Curl Up: Gains 3-7 (A17+: 9-12) Block the first time it takes unblocked
+    damage, UNLESS THAT HIT IS LETHAL! (If damage >= HP, dies instantly, Curl Up never
+    triggers). Grow: Buffs its own Strength by +3 (A17+: +4). Bite: Deals 5-7 + Str
+    damage.'
+  tactics: If its HP is low enough to be killed in one hit (e.g. 1-8 HP), attack directly
+    for the instant lethal! If at full HP, trigger Curl Up with a low-cost attack
+    before heavy hits, or kill it before Grow stacks up.
+FuzzyLouseDefensive:
+  name: Green Louse (Defensive Louse)
+  aliases:
+  - Green Louse
+  - FuzzyLouseDefensive
+  - LouseDefensive
+  threat_type: Debuffer & Curl Up
+  danger_level: Low
+  priority: 3
+  key_mechanics: 'Curl Up: Gains 3-7 (A17+: 9-12) Block on non-lethal damage. Spit
+    Web: Deals 0 damage, inflicts 2 Weak on player! Bite: Deals 5-7 damage.'
+  tactics: Lethal damage kills without triggering Curl Up. Lower priority than Red
+    Louse since Green Louse does not scale Strength.
+Healer:
+  name: Mystic (Healer)
+  aliases:
+  - Mystic
+  - Healer
+  - Centurion & Mystic
+  threat_type: Healer & Team Buffer
+  danger_level: High
+  priority: 1
+  key_mechanics: 'Heals Centurion (or allies) for 16 (A17+: 20) HP if damaged! Buffs
+    both enemies with +2-4 Strength. Attacks with Frail (8 dmg + 2 Frail).'
+  tactics: KILL MYSTIC FIRST! Direct 100% of damage onto Mystic before touching Centurion.
+    If you damage Centurion, Mystic will simply heal him back up.
+BronzeOrb:
+  name: Bronze Orb
+  aliases:
+  - Bronze Orb
+  - BronzeOrb
+  - Orb
+  threat_type: Card Steal & Armor Support
+  danger_level: High
+  priority: 1
+  key_mechanics: 'Summoned by Bronze Automaton (52-58 HP). Stasis: On Turn 1, steals
+    the highest rarity card from your draw pile! Beam: Deals 8 damage. Support Beam:
+    Gives 12 Block to Bronze Automaton.'
+  tactics: If an Orb steals a key win condition or essential attack/power, kill it
+    to immediately return the card to your hand!
+TorchHead:
+  name: Torch Head
+  aliases:
+  - Torch Head
+  - TorchHead
+  threat_type: Minion Swarm
+  danger_level: Medium
+  priority: 2
+  key_mechanics: 'Summoned by The Collector (38-42 HP). Tackle: Deals 7 damage. The
+    Collector buffs them with +3-5 Strength, increasing their hits to 12-15+ damage!'
+  tactics: Clear with AoE attacks (Whirlwind, Immolate, Cleave). If single target,
+    keep 1 alive to delay The Collector re-summoning two fresh ones.
+SnakeDagger:
+  name: Snake Dagger
+  aliases:
+  - Dagger
+  - SnakeDagger
+  - Snake Dagger
+  threat_type: Suicide Burst Explosion
+  danger_level: Extreme
+  priority: 1
+  key_mechanics: 'Summoned by Reptomancer (20-25 HP). Turn 1: Stab (9 dmg + 1 Wound).
+    Turn 2: EXPLODE (Deals 25-30 unblocked damage to player and dies!).'
+  tactics: ABSOLUTE COMBAT PRIORITY! Kill every Dagger immediately upon spawn before
+    it reaches Turn 2. Unchecked Daggers will deal 25-30 unmitigated burst damage
+    each.
+Mugger:
+  name: Mugger
+  aliases:
+  - Mugger
+  - Thieves
+  threat_type: Gold Steal & Escape
+  danger_level: Medium
+  priority: 2
+  key_mechanics: Steals 15 gold on Turn 1 and Turn 2. Casts Smoke Bomb (+11-17 Block)
+    on Turn 3 and flees on Turn 4.
+  tactics: Burst down within 3 turns before it escapes with your gold.
+BanditBear:
+  name: Bear (Red Mask Bandits)
+  aliases:
+  - Bear
+  - BanditBear
+  - Bandits
+  threat_type: Permanent Dexterity Drain
+  danger_level: Extreme
+  priority: 1
+  key_mechanics: 'Appears in Red Mask Bandits event (38-42 HP). Turn 1: Bear Hug (Inflicts
+    -4 Dexterity permanently!). Turn 2+: Lunge (18-20 dmg).'
+  tactics: KILL BEAR ON TURN 1 AT ALL COSTS! If Bear Hug connects, you lose 4 Dexterity
+    permanently for the combat, making Defend provide almost 0 block.
+BanditPointy:
+  name: Pointy (Red Mask Bandits)
+  aliases:
+  - Pointy
+  - BanditChild
+  - BanditPointy
+  threat_type: Multi-Attacker
+  danger_level: Medium
+  priority: 2
+  key_mechanics: Appears in Red Mask Bandits event (30-34 HP). Attacks with Pointy
+    Slash (5x2 = 10 dmg).
+  tactics: Low HP. Cleave or eliminate after Bear is neutralized.
+Donu:
+  name: Donu
+  aliases:
+  - Donu
+  - DonuAndDeca
+  threat_type: Permanent Strength Scaling
+  danger_level: Extreme
+  priority: 1
+  key_mechanics: '250 HP. Turn 1: Circle of Power (Buffs BOTH Donu and Deca with +3
+    Strength permanently!). Turn 2: Beam (10x2 = 20 dmg, scaled by Str). Repeats cycle.'
+  tactics: FOCUS 100% OF DAMAGE ON DONU FIRST! Donu is the engine that scales enemy
+    damage to lethal levels. Once Donu dies, Deca cannot scale strength and is easily
+    handled.
+Deca:
+  name: Deca
+  aliases:
+  - Deca
+  - DonuAndDeca
+  threat_type: Shielding & Hand Clutter
+  danger_level: High
+  priority: 2
+  key_mechanics: '250 HP. Turn 1: Beam (10x2 dmg). Turn 2: Square of Protection (Grants
+    16 Block to both and adds 2 Dazed into player discard).'
+  tactics: Block Deca attacks while burning down Donu. Deca alone has no offensive
+    scaling.
+SpireGrowth:
+  name: Spire Growth
+  aliases:
+  - SpireGrowth
+  - Serpent
+  - Spire Growth
+  threat_type: Constrict
+  danger_level: High
+  priority: 1
+  key_mechanics: '170 HP. Constrict: Applies Constricted (player takes 10-12 damage
+    at the end of EVERY turn permanently!). Smash: Deals 18-22 heavy damage.'
+  tactics: Urgent DPS race! Constrict damage bypasses end-of-turn block, so you must
+    kill it rapidly.

@@ -1,0 +1,311 @@
+act_priorities:
+  act_1:
+    goal: 生存与解决即时单体物理高伤匮乏 (Survival & Frontloaded Burst)
+    guidelines:
+    - 前 5 层全力抓取单卡即时物理高伤牌（如飞身踢 Carnage、顺劈斩 Cleave、铁浪 Iron Wave、重刃 Heavy Blade、铁头功 Headbutt、金钟罩
+      Clothesline），为打赢地精大块头 (Nob) 和乐嘉维林 (Lagavulin) 做足准备。
+    - 第 1 幕切忌过早抓取无即时战力的超厚重成长卡（如恶魔形态 Demon Form、残暴 Brutality），除非已通过前两场精英。
+    - 保证牌组至少有 1 张优质 AOE 卡（顺劈斩、旋风斩 Whirlwind、火祭 Immolate），轻松应对小软群和地精小队。
+  act_2:
+    goal: 补齐坚固防御与确立核心成长引擎 (Defense Consistency & Scaling Engine)
+    guidelines:
+    - 怪物单回合爆发剧增（如碎骨者、异鸟群、乐嘉维林组），必须补充优质护甲牌（耸肩无视 Shrug It Off、幽灵之甲 Ghostly Armor、硬化
+      Impervious、力量战的收割 Reaper）。
+    - 确立核心流派引擎（力量成长、消耗过牌闭环、或壁垒/加固叠甲）。
+  act_3:
+    goal: 精简牌库与针对终极 Boss 机制 (Deck Thinning & Boss Counters)
+    guidelines:
+    - 在商店积极净化/删除基础打击 (Strike) 与防御 (Defend)，压缩牌库至 20~25 张以内，提升核心起手启动率。
+    - 准备终极 Boss 针对对策：觉醒者 (Awakened One) 控能力牌数量、时光吞噬者 (Time Eater) 严控每回合 12 张时钟打牌数、碎心
+      (Heart) 堆叠多段防猝死。
+archetypes:
+  high_defense:
+    name: 防战 / 壁垒重击流 (High Defense & Body Slam)
+    concept: 通过多回合保留护甲并翻倍增长，将绝对防御转化为毁灭性物理重击输出。
+    core_cards:
+    - 壁垒 (Barricade)
+    - 加固 (Entrench)
+    - 全身撞击 (Body Slam)
+    - 硬化 (Impervious)
+    support_cards:
+    - 耸肩无视 (Shrug It Off)
+    - 力量均等 (Power Through)
+    - 幽灵之甲 (Ghostly Armor)
+    - 交锋/金钟罩
+    - 重装步兵 (Juggernaut)
+    key_relics:
+    - 外卡钳 (Calipers - 可替代壁垒)
+    - 转经轮
+    - 自成型黏土 (Self-Forming Clay)
+    - 锚 (Anchor)
+    - 角之号角 (Horn Cleat)
+    - 船长轮盘 (Captain Wheel)
+    - 大头菜 (Turnip - 免疫脆弱)
+    card_removal_priority: 优先在商店删除基础打击 (Strike)，保留基础防御以配合加固，直至拿到更高质量格挡卡。
+    upgrade_priority:
+    - 加固 (Entrench+ 降至 1 费是绝对质变)
+    - 全身撞击 (Body Slam+ 变为 0 费)
+    - 壁垒 (Barricade+ 降至 2 费)
+    strengths: 极度克制无力量成长的单体怪物，大后期护甲轻松达 999 滴血不掉。
+    pitfalls: 畏惧极早期高爆发伤害，且被脆弱 (Frail) 严重削弱 25% 格挡；必须注意启动前几回合的过牌平稳度。
+  high_strength:
+    name: 力量战 (High Strength Archetype)
+    concept: 通过力量增益放大每一段物理攻击收益，配合多段攻击和吸血实现攻防一体。
+    core_cards:
+    - 观察弱点 (Spot Weakness)
+    - 发光 (Inflame)
+    - 恶魔形态 (Demon Form)
+    - 突破极限 (Limit Break)
+    - 重刃 (Heavy Blade)
+    - 收割 (Reaper)
+    support_cards:
+    - 活动肌肉 (Flex)
+    - 双重打击 (Twin Strike)
+    - 剑刃风暴 (Sword Boomerang)
+    - 狂风怒号 (Whirlwind)
+    - 轻度打击 (Pummel)
+    - 痛击 (Bash)
+    key_relics:
+    - 金刚杵 (Vajra)
+    - 哑铃 (Girya)
+    - 手裏剑 (Shuriken)
+    - 苦无 (Kunai)
+    - 红头骨 (Red Skull)
+    - 异蛇之眼 (Snecko Eye)
+    - 巫毒娃娃
+    card_removal_priority: 删除基础打击，优先替换为多段攻击（双重打击、飞冲）和过牌卡。
+    upgrade_priority:
+    - 突破极限 (Limit Break+ 不消耗，力量可实现几何级翻倍 4->8->16->32)
+    - 重刃 (Heavy Blade+ 力量系数提升至 5 倍)
+    - 收割 (Reaper+ 回血倍增)
+    strengths: 爆发速度与清场能力极强，收割在打出超高力量时能把血量直接从残血回满，提供无与伦比的血量续航。
+    pitfalls: 启动需要回合安放能力牌；若无收割牌，纯力量战往往防御空虚，需警惕乐嘉维林吸取力量与觉醒者好奇心。
+  corruption_dead_branch:
+    name: 树枝腐化流 (Corruption + Dead Branch Combo)
+    concept: 尖塔公认顶级爽局与最强无脑制霸流派。所有技能牌 0 费打出并消耗，死灵树枝即刻补充新牌，形成单回合永动。
+    core_cards:
+    - 腐化 (Corruption)
+    - 无惧疼痛 (Feel No Pain)
+    - 黑拥 (Dark Embrace)
+    - 重装步兵 (Juggernaut)
+    support_cards:
+    - 哨卫 (Sentinel)
+    - 铁浪 (Iron Wave)
+    - 祭品 (Offering)
+    - 战吼 (Warcry)
+    - 耸肩无视 (Shrug It Off)
+    key_relics:
+    - 死灵树枝 (Dead Branch - 绝版核心)
+    - 卡戎之灰 (Charon Ashes - 每次消耗全场打 3)
+    card_removal_priority: 删除所有基础打击，牌组中塞入海量优质/廉价技能牌。
+    upgrade_priority:
+    - 腐化 (Corruption+ 降至 2 费更早启动)
+    - 无惧疼痛 (Feel No Pain+ 每次消耗叠 4 甲)
+    strengths: 遇神杀神，兼顾无限过牌、无限格挡与无限火力。
+    pitfalls: 在极罕见情况下树枝可能塞满难以打出的高费能力卡卡手，需注意手牌上限 (10张) 溢出。
+  corruption_dark_embrace:
+    name: 腐化黑拥精炼消耗流 (Corruption + Dark Embrace Engine)
+    concept: 不依赖死灵树枝的纯硬实力竞技流派。利用腐化让技能 0 费与黑拥消耗抽牌，在 1 回合内过穿整个牌库。
+    core_cards:
+    - 腐化 (Corruption)
+    - 黑暗之拥 (Dark Embrace)
+    - 无惧疼痛 (Feel No Pain)
+    - 全身撞击 (Body Slam)
+    - 加固 (Entrench)
+    support_cards:
+    - 哨卫 (Sentinel - 消耗立即产生 2/3 能量)
+    - 耸肩无视 (Shrug It Off)
+    - 放血 (Bloodletting)
+    - 恶魔之火 (Fiend Fire)
+    key_relics:
+    - 日晷 (Sundial)
+    - 算盘 (The Abacus)
+    - 无惧疼痛遗物
+    card_removal_priority: 全力精简删除打击卡，甚至在启动成型后可删部分多余攻击牌。
+    upgrade_priority:
+    - 黑暗之拥 (Dark Embrace+ 降至 1 费)
+    - 腐化 (Corruption+ 降费)
+    - 无惧疼痛+
+    strengths: 超高稳定性的职业竞速套路，单回合内叠满几百护甲并直接撞杀一切 Boss。
+    pitfalls: 技能牌打出后即永久消耗，长线作战（如防守不当时牌库抽空）若无法在 1~2 轮内斩杀可能后劲不足。
+  status_evolve:
+    name: 状态伤口与进化流 (Status & Evolve / Fire Breathing)
+    concept: 将自带副作用（塞伤口/眩晕）的高模单卡转变为纯正收益，化劣势为海量过牌与全场高额灼烧。
+    core_cards:
+    - 进化 (Evolve)
+    - 火焰吐息 (Fire Breathing)
+    - 硬撑 (Power Through)
+    - 野蛮打击 (Wild Strike)
+    - 狂怒充能 (Reckless Charge)
+    support_cards:
+    - 火祭 (Immolate)
+    - 真气 (True Grit+)
+    - 断魂一击 (Sever Soul)
+    - 恶魔之火 (Fiend Fire)
+    - 坚毅 (Second Wind)
+    key_relics:
+    - 医疗包 (Medical Kit - 状态牌免费打出并消耗)
+    - 痛苦印记 (Mark of Pain - +1 能量且附带伤口变为纯收益)
+    card_removal_priority: 删除普通打击与防御，保留产生伤口的高超模攻防牌。
+    upgrade_priority:
+    - 进化 (Evolve+ 抽到状态牌抽 2 张)
+    - 真气 (True Grit+ 指定消耗卡)
+    - 火焰吐息 (Fire Breathing+ 每次状态牌造成 10 点群体伤害)
+    strengths: 完克哨卫三兄弟 (Sentries)、史莱姆、奴隶贩子等所有塞塞牌怪，一回合过牌可瞬间爆发出 40~60 点被动全场伤害。
+    pitfalls: 第一轮牌库未抽出进化前可能略微卡手，必须配备战吼或战斗专注辅助早期滤牌。
+  perfected_strike:
+    name: 完美打击大剑流 (Perfected Strike Deck)
+    concept: 以“打击”字样卡牌为核心增幅乘区，无脑堆叠高基数伤害的大开大合输出流。
+    core_cards:
+    - 完美打击 (Perfected Strike)
+    - 柄击 (Pommel Strike)
+    - 双重打击 (Twin Strike)
+    - 野蛮打击 (Wild Strike)
+    support_cards:
+    - 战斗专注 (Battle Trance)
+    - 祭品 (Offering)
+    - 双发 (Double Tap)
+    - 双持 (Dual Wield - 复制完美打击)
+    - 迅捷打击 (Swift Strike)
+    key_relics:
+    - 打击木偶 (Strike Dummy - 所有打击基础伤害 +3)
+    - 死灵之书 (Necronomicon - 完美打击+打两次)
+    - 祈祷轮 (Prayer Wheel)
+    card_removal_priority: 【例外规则】绝不主动删除基础打击，甚至可在前期多抓带有打击名字的单卡。
+    upgrade_priority:
+    - 完美打击 (Perfected Strike+ 每次增幅由 2 跃升为 3 点)
+    - 双发 (Double Tap+)
+    strengths: 成型极快，爬塔 Act 1 遇到便可起飞，单卡打出 40~70 暴击物理伤害极其容易。
+    pitfalls: 卡组体量通常较厚（25~35张），极度缺乏防守，必须依赖自成型黏土、奥利哈钢、船锚等防御遗物撑场。
+  masochist_rupture:
+    name: 受虐自残卖血流 (Masochist / Rupture Deck)
+    concept: 通过自我掉血（自残牌或痛楚诅咒）反复触发破裂增益，快速积攒超高力量并以血还血。
+    core_cards:
+    - 破裂 (Rupture)
+    - 残暴 (Brutality)
+    - 自燃 (Combust)
+    - 以血还血 (Blood for Blood)
+    - 收割 (Reaper)
+    support_cards:
+    - 嗜血 (Hemokinesis)
+    - 放血 (Bloodletting)
+    - 祭品 (Offering)
+    - 突破极限 (Limit Break)
+    - 痛楚诅咒 (Pain)
+    key_relics:
+    - 自成型黏土 (Self-Forming Clay - 掉血反叠甲神器)
+    - 魔法之花 (Magic Flower)
+    - 符文立方体 (Runic Cube - 掉血抽牌)
+    - 蓝色蜡烛 (Blue Candle)
+    card_removal_priority: 删除普通打击，若有痛楚诅咒千万别删（这是无限触发破裂的源泉）。
+    upgrade_priority:
+    - 破裂 (Rupture+ 每次自残 +2 力量)
+    - 以血还血 (Blood for Blood+ 伤害升至 22 且降费更快)
+    strengths: 以血还血很快变为 0 费 22 伤超级核弹；配合收割可在最后回合瞬间回满血量。
+    pitfalls: 必须时刻计算血线健康度，严防在未能打出收割前回合血量耗尽翻车。
+  dropkick_infinite:
+    name: 飞身踢无限连击流 (Dropkick Infinite Deck)
+    concept: 将卡组极限压缩至 5~10 张以内，在目标处于易伤状态下用双飞身踢实现永动机无限循环。
+    core_cards:
+    - 飞踢 (Dropkick - 需 2 张或 1 张加双持)
+    - 痛击 (Bash) / 上勾拳 (Uppercut)
+    - 双持 (Dual Wield)
+    support_cards:
+    - 祭品 (Offering+)
+    - 真气 (True Grit+)
+    - 恶魔之火 (Fiend Fire - 战斗中临时烧牌清空杂牌)
+    - 踢倒 (Trip)
+    key_relics:
+    - 日晷 (Sundial)
+    - 算盘 (The Abacus)
+    - 不休陀螺 (Unceasing Top)
+    card_removal_priority: 【最高删牌优先级】在所有商店和篝火疯狂删牌，直到牌库除启动件和飞踢外无任何冗余。
+    upgrade_priority:
+    - 飞踢 (Dropkick+ 伤害提升加快击杀)
+    - 痛击 (Bash+ 保持易伤覆盖回合)
+    strengths: 一旦启动且无特殊机制限制，无限能量无限抽牌可 1 回合踢死绝大多数敌人。
+    pitfalls: 严重被时光吞噬者（12张强行终止回合）和心脏（心跳每张牌扣 1~2 血）克制；对心脏必须备好算盘或高额被动叠甲。
+  snecko_eye:
+    name: 异蛇之眼重型炸弹流 (Snecko Eye High-Cost Deck)
+    concept: 首领遗物异蛇之眼（每回合多抽 2 张，牌费随机 0~3）带来的高费核弹狂欢。
+    core_cards:
+    - 痛击/重击 (Bludgeon - 3费打32/42)
+    - 飞身踢/残暴 (Carnage - 2费打20/28)
+    - 火祭 (Immolate)
+    - 恶魔形态 (Demon Form)
+    support_cards:
+    - 烈焰屏障 (Flame Barrier)
+    - 硬化 (Impervious)
+    - 双持 (Dual Wield - 复制 0 费巨剑)
+    - 断魂一击 (Sever Soul)
+    key_relics:
+    - 异蛇之眼 (Snecko Eye - 核心灵魂)
+    card_removal_priority: 删除所有 0 费和 1 费低效牌（如未升级打击、防御），全部换成 2~3 费高模怪兽。
+    upgrade_priority:
+    - 痛击 (Bludgeon+ 42 伤害)
+    - 火祭 (Immolate+ 28 伤群攻)
+    - 烈焰屏障+
+    strengths: 平均每回合打出 2~3 张原本需要 6~9 费才能打出的强力大牌，单回合爆发极其恐怖。
+    pitfalls: 忌抓大量 0 费小牌（会被异蛇随机拉高费用造成卡手）。
+  rampage_cycle:
+    name: 暴走极简速转流 (Rampage Cycle Deck)
+    concept: 仅保留 1 张暴走作为唯一核心终端，依靠极薄卡组与快速检索实现一回合多次打出快速成长。
+    core_cards:
+    - 暴走 (Rampage - 严格仅限 1 张)
+    - 头槌 (Headbutt)
+    - 双发 (Double Tap)
+    support_cards:
+    - 战斗专注 (Battle Trance)
+    - 战吼 (Warcry)
+    - 耸肩无视 (Shrug It Off)
+    - 祭品 (Offering)
+    key_relics:
+    - 弹珠袋 (Bag of Marbles)
+    - 纸蛙/易伤增益遗物
+    card_removal_priority: 全力删牌压缩牌库，绝不抓产生状态牌的卡（如野蛮打击、狂怒充能），避免污染牌库稀释暴走上手率。
+    upgrade_priority:
+    - 暴走 (Rampage+ 每次成长由 5 提升为 8 伤害)
+    - 双发 (Double Tap+ 一回合双击暴走成长两次)
+    strengths: 在 2~3 回合后暴走伤害迅速突破 50~100+，单核成型对金卡要求极低。
+    pitfalls: 只能拿 1 张暴走；忌多拿，否则相互稀释成长速度。
+  fiend_fire:
+    name: 恶魔之火手牌核爆流 (Fiend Fire Burst Deck)
+    concept: 快速囤积多达 8~10 张手牌，打出恶魔之火消耗全手牌释放超高连击段数瞬间秒杀。
+    core_cards:
+    - 恶魔之火 (Fiend Fire)
+    - 战斗专注 (Battle Trance)
+    - 祭品 (Offering)
+    - 黑暗之拥 (Dark Embrace)
+    support_cards:
+    - 无惧疼痛 (Feel No Pain)
+    - 发光 (Inflame)
+    - 重装步兵 (Juggernaut)
+    key_relics:
+    - 符文金字塔 (Runic Pyramid - 手牌不弃，轻松存满 10 张)
+    - 任何力量遗物 (力量将倍增恶魔之火的每一段伤害)
+    card_removal_priority: 删除低收益杂牌，配合黑暗之拥在烧光手牌的同时再次过穿牌库。
+    upgrade_priority:
+    - 恶魔之火 (Fiend Fire+ 每张牌伤害由 7 提升至 10 点)
+    - 祭品 (Offering+)
+    strengths: 满手牌配合中量力量即可打出 100~150+ 点单回合恐怖爆发，直接斩杀精英与二阶段 Boss。
+    pitfalls: 恶魔之火会将手牌全部烧毁，若一击未能斩杀，需确保下回合有抽牌或防守能力。
+  searing_blow:
+    name: 炽热之击单卡无限锻造流 (Searing Blow Infinite Smith Deck)
+    concept: 尖塔唯一可无限锻造升级的单卡。卡组所有篝火全部分配给炽热之击，锻造至 +10 以上直接一击破百。
+    core_cards:
+    - 炽热之击 (Searing Blow - 必须在 Act 1 前几个房间早早拿到)
+    - 武装 (Armaments+ 局内再升一级)
+    - 头槌 (Headbutt)
+    support_cards:
+    - 双发 (Double Tap)
+    - 双持 (Dual Wield)
+    - 战吼 (Warcry)
+    - 耸肩无视 (Shrug It Off)
+    key_relics:
+    - 死灵之书 (Necronomicon - 炽热之击 2 费打两次，直接打出 200~300 伤害)
+    - 和平烟斗 (Peace Pipe - 在篝火删光其他废牌)
+    card_removal_priority: 疯狂删除基础打击，确保每回合尽快抽出炽热之击。
+    upgrade_priority:
+    - 所有篝火 100% 留给炽热之击！
+    strengths: 成长曲线直观暴力，后期一刀 150+ 伤害毁灭一切。
+    pitfalls: 必须在第 1 幕前 3~5 层拿到才值得走此路线；若在第 2 幕拿到则锻造次数不足无法成型。
