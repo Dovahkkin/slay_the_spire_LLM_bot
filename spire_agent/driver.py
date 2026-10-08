@@ -2,6 +2,7 @@ import sys
 import time
 import json
 import logging
+import socket
 from abc import ABC, abstractmethod
 from typing import Optional, Dict, Any, List
 from .models import (
@@ -527,9 +528,197 @@ class CommunicationModDriver(BaseGameDriver):
         return None
 
     def send_full_action(self, action: BaseAction) -> Optional[FullGameState]:
-        cmd = action.raw_command.strip()
+        cmd = action.raw_command.strip().lower()
         logger.info(f"[CommunicationMod 发送指令]: {cmd}")
         sys.stdout.write(cmd + "\n")
         sys.stdout.flush()
         time.sleep(0.05)
         return self.get_full_state()
+
+
+class SocketGameDriver(BaseGameDriver):
+    """
+    TCP Socket 游戏驱动：
+    连接本地 CommunicationMod 继电器 (默认 127.0.0.1:18888)。
+    适用于 MCP Server、网页端或外部调试器与运行中的 Steam 游戏进行双向异步通信。
+    若未启动真实游戏，is_connected() 返回 False，允许上层优雅回退至 MockGameDriver 沙盒。
+    """
+
+    def __init__(self, host: str = "127.0.0.1", port: int = 18888, timeout: float = 1.0):
+        self.host = host
+        self.port = port
+        self.timeout = timeout
+        self.sock: Optional[socket.socket] = None
+        self.file_r = None
+        self.file_w = None
+        self.game_finished = False
+        self.current_full_state: Optional[FullGameState] = None
+        self._debug_intent_retries: int = 0
+        self.connect()
+
+    def connect(self) -> bool:
+        try:
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.sock.settimeout(self.timeout)
+            self.sock.connect((self.host, self.port))
+            self.file_r = self.sock.makefile("r", encoding="utf-8")
+            self.file_w = self.sock.makefile("w", encoding="utf-8")
+            self.file_w.write("state\n")
+            self.file_w.flush()
+            logger.info(f"[SocketDriver] 成功连接至 {self.host}:{self.port}")
+            return True
+        except Exception as e:
+            logger.debug(f"[SocketDriver] 连接至 {self.host}:{self.port} 失败: {e}")
+            if self.sock:
+                try:
+                    self.sock.close()
+                except Exception:
+                    pass
+            self.sock = None
+            self.file_r = None
+            self.file_w = None
+            return False
+
+    def is_connected(self) -> bool:
+        return self.sock is not None and not self.game_finished
+
+    def close(self):
+        if self.sock:
+            try:
+                self.sock.close()
+            except Exception:
+                pass
+        self.sock = None
+        self.file_r = None
+        self.file_w = None
+
+    def is_game_over(self) -> bool:
+        return self.game_finished or not self.is_connected()
+
+    def get_full_state(self, request_state: bool = True) -> Optional[FullGameState]:
+        if not self.is_connected():
+            return None
+        if request_state:
+            try:
+                if self.sock:
+                    self.sock.setblocking(False)
+                    try:
+                        while self.sock.recv(65536):
+                            pass
+                    except (BlockingIOError, socket.error):
+                        pass
+                    self.sock.setblocking(True)
+                    self.file_r = self.sock.makefile("r", encoding="utf-8")
+                self.file_w.write("state\n")
+                self.file_w.flush()
+            except Exception as e:
+                logger.warning(f"[SocketDriver] 请求 state 失败: {e}")
+                self.close()
+                return self.current_full_state
+        while not self.game_finished:
+            try:
+                line = self.file_r.readline()
+            except Exception as e:
+                logger.warning(f"[SocketDriver] 读取数据异常: {e}")
+                if self.sock:
+                    try:
+                        self.file_r = self.sock.makefile("r", encoding="utf-8")
+                    except Exception:
+                        self.close()
+                return self.current_full_state
+            if not line:
+                self.game_finished = True
+                logger.info("[SocketDriver] 连接已断开 (EOF)。")
+                self.close()
+                return self.current_full_state
+
+            line_str = line.strip()
+            if not line_str:
+                continue
+
+            try:
+                raw_json = json.loads(line_str)
+                if "error" in raw_json:
+                    err_msg = raw_json.get("error", "")
+                    logger.warning(f"[SocketDriver 报错]: {err_msg}，发送 state 指令恢复同步...")
+                    self.file_w.write("state\n")
+                    self.file_w.flush()
+                    continue
+
+                if "in_game" in raw_json and not raw_json.get("in_game", True):
+                    logger.info("[SocketDriver] 游戏当前处于主菜单或外部...")
+                    time.sleep(1.0)
+                    continue
+
+                ready = raw_json.get("ready_for_command", False)
+                available_cmds = raw_json.get("available_commands", [])
+                if not ready or not available_cmds:
+                    continue
+
+                # 怪物意图防抖
+                game_state = raw_json.get("game_state", {})
+                combat_state_raw = game_state.get("combat_state") or raw_json.get("combat_state")
+                in_combat = game_state.get("in_combat", False) or raw_json.get("in_combat", False)
+
+                from .combat_tracer import CombatTracer
+                tracer = CombatTracer.get_instance()
+
+                if combat_state_raw and in_combat:
+                    monsters_raw = combat_state_raw.get("monsters", [])
+                    unready_reasons = []
+
+                    def _is_unready(m: Dict[str, Any]) -> bool:
+                        if m.get("is_gone", False) or m.get("half_dead", False) or m.get("current_hp", 0) <= 0:
+                            return False
+                        it = m.get("intent", "").upper().strip()
+                        if it in ["DEBUG", "UNKNOWN", "NONE", ""]:
+                            unready_reasons.append(f"Monster {m.get('id')} intent '{it}'")
+                            return True
+                        if "ATTACK" in it:
+                            adj_dmg = m.get("move_adjusted_damage", -1)
+                            base_dmg = m.get("move_base_damage", -1)
+                            if (adj_dmg is None or adj_dmg <= 0) and (base_dmg is None or base_dmg <= 0):
+                                unready_reasons.append(f"Monster {m.get('id')} pending dmg")
+                                return True
+                        return False
+
+                    if any(_is_unready(m) for m in monsters_raw):
+                        if self._debug_intent_retries < 10:
+                            self._debug_intent_retries += 1
+                            self.file_w.write("wait 15\n")
+                            self.file_w.flush()
+                            time.sleep(0.15)
+                            continue
+                        else:
+                            self._debug_intent_retries = 0
+                    else:
+                        tracer.log_raw_combat_frame(raw_json, debounce_status="PASS (All monster intents ready)")
+                        self._debug_intent_retries = 0
+
+                from .compressor import StateCompressor
+                self.current_full_state = StateCompressor.from_communication_mod_full_json(raw_json)
+                return self.current_full_state
+
+            except json.JSONDecodeError:
+                continue
+            except Exception as e:
+                logger.error(f"[SocketDriver] 解析状态异常: {e}")
+                continue
+
+        return None
+
+    def send_full_action(self, action: BaseAction) -> Optional[FullGameState]:
+        if not self.is_connected():
+            return None
+        cmd = action.raw_command.strip().lower()
+        logger.info(f"[SocketDriver 发送指令]: {cmd}")
+        try:
+            self.file_w.write(cmd + "\n")
+            self.file_w.flush()
+        except Exception as e:
+            logger.warning(f"[SocketDriver] 发送指令异常: {e}")
+            self.close()
+            return self.current_full_state
+        time.sleep(0.05)
+        return self.get_full_state(request_state=False)
+

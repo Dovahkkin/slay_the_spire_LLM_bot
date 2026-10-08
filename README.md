@@ -27,6 +27,10 @@
    - **精准伤害与格挡试算器 (`calculate_card_sequence`)**：精确叠加力量、敏捷、易伤、虚弱与护甲抵扣；
    - **怪物情报对策库 (`lookup_monster_tactics`)**：收录 64+ 怪物（第 1 至 4 幕所有 Boss、精英与小怪）特异机制与打法禁忌；
    - **战士主流流派定位库**：收录 12 大成熟构筑流派指导，支持 A20 进阶决策。
+6. **双轨交互架构（全自动托管 vs 标准 MCP 伴打）**：
+   - **全自动托管模式 (`main.py`)**：由神经-符号系统全权决策，全自动通关爬塔；
+   - **交互伴打模式 (`spire_agent/mcp_server.py`)**：基于 FastMCP 协议，可无缝接入 **Google Antigravity、Cursor、Claude Code、Claude Desktop** 等现代 AI 环境，支持人类玩家在 IDE / 聊天界面中与 AI 协同打牌、分析局势与决策；
+   - **零时差 Socket 继电器 (`spire_agent/relay.py`)**：将 CommunicationMod 桥接至本地 `127.0.0.1:18888` TCP 端口，内置非阻塞缓冲区极速排空（Drain）引擎，杜绝任何历史时差滞后。
 
 ---
 
@@ -68,18 +72,24 @@ C:\Users\<你的Windows用户名>\AppData\Local\ModTheSpire\CommunicationMod\con
 *(如果该文件或文件夹不存在，请手动创建文件夹和 `config.properties` 纯文本文件)*
 
 #### 2. 编辑 `config.properties`
-用记事本打开 `config.properties`，填入以下内容：
+用记事本打开 `config.properties`，根据你想运行的模式填入对应命令：
 
-```properties
-command=C\:\\Users\\<你的Windows用户名>\\Documents\\slay-the-spire-llm-agent\\run_bot.bat
-runAtGameStart=true
-```
+* **模式 A：全自动自主托管爬塔（AI 全自动推演与出牌）**：
+  ```properties
+  command=C\:\\Users\\<你的Windows用户名>\\Documents\\slay-the-spire-llm-agent\\run_bot.bat
+  runAtGameStart=true
+  ```
+* **模式 B：MCP 伴打与交互模式（推荐接入 Google Antigravity、Cursor、Claude Code 等）**：
+  ```properties
+  command=C\:\\Users\\<你的Windows用户名>\\Documents\\slay-the-spire-llm-agent\\run_relay.bat
+  runAtGameStart=true
+  ```
 
 > ⚠️ **极其重要的语法注意点（Java Properties 转义规则）**：
 > 1. **反斜杠与冒号转义**：Properties 文件中，路径中的冒号 `:` 前面**必须加反斜杠**转义（即 `C\:`），且路径分隔符必须是**双反斜杠**（即 `\\`）。
 >    - ❌ 错误示范：`command=C:\Users\test\project\run_bot.bat`
 >    - ✅ 正确示范：`command=C\:\\Users\\test\\project\\run_bot.bat`
-> 2. **`runAtGameStart=true`**：该项设置为 `true` 时，每次游戏开局进入地牢，CommunicationMod 会**自动启动 `run_bot.bat` 并接管游戏**，不需要你每次在后台手动敲命令行！
+> 2. **`runAtGameStart=true`**：该项设置为 `true` 时，每次游戏开局进入地牢，CommunicationMod 会**自动唤醒所配置的脚本**，不需要你每次在后台手动敲命令行！
 
 ---
 
@@ -171,6 +181,91 @@ GEMINI_MODEL=gemini-2.5-flash
 
 ---
 
+## 🔌 Model Context Protocol (MCP) Server 接入与工具指南
+
+除了让 AI 智能体在后台全自动通关爬塔（模式 A：Autopilot）外，本项目现已全面升级支持 **Model Context Protocol (MCP)** 标准！
+
+你可以将《杀戮尖塔》作为一个具有丰富上下文感知与精准推演能力的 **MCP Server**，接入到 **Google Antigravity、Cursor、Claude Code、Claude Desktop** 等现代 AI 环境中，实现 **人类玩家操作 + AI 军师伴打推演**，或通过自然语言让 AI 执行打牌、商店选购与路线导航。
+
+### 1. 架构工作流 (Architecture)
+
+```text
++-----------------------+           Standard I/O          +-----------------------+
+|  《杀戮尖塔》Steam 游戏  | <-----------------------------> |  CommunicationMod     |
++-----------------------+                                 +-----------------------+
+                                                                      │
+                                                             stdin / stdout pipe
+                                                                      ▼
++-----------------------+        TCP Socket (18888)       +-----------------------+
+|  FastMCP Server       | <-----------------------------> |  spire_agent/relay.py |
+| (spire_agent/mcp_server)|                               |  (零时差广播与排空继电器)|
++-----------------------+                                 +-----------------------+
+          │
+      JSON-RPC (stdio)
+          ▼
++---------------------------------------------------------+
+|  AI 客户端 (Google Antigravity / Cursor / Claude Code)    |
++---------------------------------------------------------+
+```
+
+* **零时差 Socket 继电器 ([`spire_agent/relay.py`](spire_agent/relay.py))**：在后台建立 TCP 广播，彻底解耦游戏 I/O 阻塞。内置非阻塞缓冲区极速排空（Drain）引擎，杜绝任何历史时差滞后。
+* **无缝回退与沙盒热插拔**：若未启动游戏或 Socket 离线，MCP 服务会自动挂载本地离线 Mock 沙盒，可随时在聊天窗口中无缝演练与单测！
+
+---
+
+### 2. 客户端配置接入方法 (Client Setup)
+
+在你的 MCP 客户端配置文件中（例如 Cursor `mcp.json`、Antigravity `mcp_config.json` 或 Claude Desktop 对应配置），添加如下配置节：
+
+```json
+{
+  "mcpServers": {
+    "slay-the-spire": {
+      "command": "python",
+      "args": ["-m", "spire_agent.mcp_server"],
+      "env": {
+        "PYTHONPATH": ".",
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1"
+      }
+    }
+  }
+}
+```
+> 💡 若使用虚拟环境，将 `"command"` 路径指定为 `.venv/Scripts/python.exe` 即可（参考根目录 [`mcp_config.example.json`](mcp_config.example.json)）。
+
+---
+
+### 3. MCP 工具矩阵 (Tools Reference)
+
+本项目 MCP Server 对外暴露 8 个高语义工具，覆盖从战斗到大地图、商店、火堆休整的全流程：
+
+| 工具名称 | 核心功能与参数说明 | 典型调用场景 |
+| :--- | :--- | :--- |
+| `get_game_state` | **获取当前全量局势**<br>输出高语义压缩战况：手牌/费用/意图/遗物/血量/商店列表/网格选项等 | 回合开始、开新楼层、进入事件或商店时了解战况 |
+| `calculate_damage` | **精确伤害与斩杀推演**<br>参数: `card_indices: list[int]`, `target_index: int = 0`<br>严格计算力量、敏捷、易伤、虚弱及护甲 | 决策出牌顺序前心算连招伤害，判断能否直接秒杀怪物 |
+| `play_card` | **执行打牌动作**<br>参数: `card_index: int` (手牌索引 0-based), `target_index: int = 0` | 打出打击、痛击、旋风斩、防御等卡牌 |
+| `end_turn` | **结束当前战斗回合**<br>向游戏底层下达 `end` 指令并等待怪物回合结算 | 当前费用耗尽或无需继续出牌时交替回合 |
+| `choose_option` | **做出选择与交互**<br>参数: `index: int`, `name: str = ""` (可选名字做二次校核)<br>支持地图选点、战利品认领、商店购物、火堆锻造、事件分支 | “买下狂暴”、“前往精英怪房间”、“火堆锻造痛击” |
+| `confirm` | **通用确认交互**<br>无参。向下位机发送 `confirm` 指令 | 篝火锻造确认、卡牌升级完成、网格选牌确认 |
+| `cancel_or_skip` | **跳过奖励或返回**<br>无参。向下位机发送 `cancel` 指令 | 跳过卡牌三选一、离开商店、退出选牌界面 |
+| `proceed` | **推进结算流程**<br>无参。向下位机发送 `proceed` 指令 | 战斗胜利战利品领完后离开房间、通往下一层 |
+| `reset_scenario` | **切换测试沙盒环境**<br>参数: `scenario: str`<br>可选: `"cultist"`, `"lethal"`, `"card_reward"`, `"reward"`, `"live"` | 离线调试、单元测试或切回 Steam 实机连接 |
+| `solver_health` | **检查系统健康与连通性**<br>检查 Socket 通信、驱动类型及 FastMCP 运行状态 | 诊断服务可用性 |
+
+---
+
+### 4. 伴打与实战指令范例 (Examples)
+
+连接 MCP 客户端后，你可以直接用自然语言对 AI 发号施令：
+
+* **局势分析**：“*看一眼现在的牌面，计算一下痛击加两张打击能不能斩杀左边的小怪？*”
+* **连招出牌**：“*先对 0 号怪打出痛击，然后打一张防御，最后结束回合。*”
+* **商店消费**：“*看下商店里有什么牌和遗物，帮我买下无惧疼痛，再删掉牌组里的基础打击。*”
+* **火堆锻造**：“*在火堆选择升级，帮我把痛击升级为痛击+，然后确认。*”
+
+---
+
 ## 🧪 离线沙盒极速测试（无需打开游戏）
 
 即使没有打开 Steam，你也可以在命令行中利用内置的沙盒模拟器进行极速算法验证：
@@ -187,7 +282,11 @@ GEMINI_MODEL=gemini-2.5-flash
   ```bash
   python main.py --driver mock --scenario lethal
   ```
-* **运行全套自动化单元测试**：
+* **运行 MCP Server 专属单元测试（7 个用例全覆盖）**：
+  ```bash
+  python -m unittest tests/test_mcp_server.py
+  ```
+* **运行全套自动化单元测试（94 个用例）**：
   ```bash
   python -m unittest discover tests
   ```
@@ -197,5 +296,10 @@ GEMINI_MODEL=gemini-2.5-flash
 ## 📁 核心日志与状态监控文件
 
 - [`run_memo.md`](run_memo.md)：战略黑板实时保存文件，以标准 Markdown 记录流派演变与历史战斗复盘。
+- [`run_bot.bat`](run_bot.bat)：CommunicationMod 唤醒全自动 Agent 运行的启动脚本。
+- [`run_relay.bat`](run_relay.bat)：CommunicationMod 唤醒零时差 Socket 继电器的启动脚本。
+- [`spire_agent/mcp_server.py`](spire_agent/mcp_server.py)：基于 FastMCP 构建的 Slay the Spire 标准 MCP 服务器。
+- [`spire_agent/relay.py`](spire_agent/relay.py)：双向 Socket 广播桥梁，解决跨进程并发通信阻塞。
+- [`mcp_config.example.json`](mcp_config.example.json)：AI 客户端 MCP 连接配置模板。
 - [`run_bot.log`](run_bot.log)：CommunicationMod 唤醒批处理脚本的启动与退出时间戳记录。
 - [`bot_debug.log`](bot_debug.log)：游戏与 Agent 之间所有的通信协议交互、大模型推演日志及调试信息。

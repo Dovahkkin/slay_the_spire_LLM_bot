@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "slay-the-spire": {
+      "command": "python",
+      "args": ["-m", "spire_agent.mcp_server"],
+      "env": {
+        "PYTHONPATH": ".",
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1"
+      }
+    }
+  }
+}
