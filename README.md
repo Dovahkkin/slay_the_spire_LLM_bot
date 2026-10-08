@@ -303,3 +303,17 @@ GEMINI_MODEL=gemini-2.5-flash
 - [`mcp_config.example.json`](mcp_config.example.json)：AI 客户端 MCP 连接配置模板。
 - [`run_bot.log`](run_bot.log)：CommunicationMod 唤醒批处理脚本的启动与退出时间戳记录。
 - [`bot_debug.log`](bot_debug.log)：游戏与 Agent 之间所有的通信协议交互、大模型推演日志及调试信息。
+
+---
+
+## 👥 贡献者与结对致谢 (Contributors & Credits)
+
+本项目由人类工程师与大语言模型代理结对编程（Pair-Programmed）协同构筑：
+
+| 贡献者 / 协作角色 | 领域与职责 | 链接 |
+| :--- | :--- | :--- |
+| **Dovahkkin** | 👑 项目主创、游戏决策体系架构、实机测试与战略规划 | [@Dovahkkin](https://github.com/Dovahkkin) |
+| **Google DeepMind Antigravity** | ⚡ AI 结对编程、FastMCP 协议服务器、零时差 Socket 继电器与符号计算库 | [Google DeepMind](https://deepmind.google/) |
+
+> 💡 **致谢说明**：本项目的宏观/微观双层规划体系、FastMCP 协议服务器、怪物行动禁忌库以及零时差 Socket 继电器网桥均由人类开发者与 Google DeepMind Antigravity 深度协同结对实现。
+
